@@ -1,0 +1,76 @@
+gender(valya, woman).
+gender(valera, man).
+gender(luda, woman).
+gender(gena, man).
+gender(dmitry, man).
+gender(vika, woman).
+gender(kostya, man).
+gender(pavel, man).
+gender(marina, woman).
+gender(tolya, man).
+gender(tanya, woman).
+gender(vova, man).
+gender(ivan, man).
+gender(sasha, man).
+gender(katya, woman).
+gender(misha, man).
+gender(alex, man).
+gender(zhenya, man).
+
+married(valya, valera).
+married(valera, valya).
+married(luda, gena).
+married(gena, luda).
+married(dmitry, vika).
+married(vika, dmitry).
+married(vika, kostya).
+married(kostya, vika).
+married(pavel, marina).
+married(marina, pavel).
+married(tolya, tanya).
+married(tanya, tolya).
+married(tanya, vova).
+married(vova, tanya).
+
+parent(valera, vika).
+parent(valya, vika).
+parent(valera, pavel).
+parent(valya, pavel).
+parent(gena, marina).
+parent(luda, marina).
+parent(gena, tanya).
+parent(luda, tanya).
+parent(pavel, ivan).
+parent(marina, ivan).
+parent(pavel, sasha).
+parent(marina, sasha).
+parent(pavel, katya).
+parent(marina, katya).
+parent(tolya, misha).
+parent(tanya, misha).
+parent(vova, zhenya).
+parent(tanya, zhenya).
+parent(zhenya, alex).
+
+
+father(X,Y) :- parent(X,Y),gender(X,man).
+
+mother(X,Y) :- parent(X,Y),gender(X,woman).
+
+common_father(X,Y) :- father(Z,X),father(Z,Y).
+
+common_mother(X,Y) :- mother(Z,X),mother(Z,Y).
+
+common_parent(X,Y) :- common_father(X,Y);common_mother(X,Y).
+
+brother(X,Y) :- common_parent(X,Y),gender(X,man).
+
+sister(X,Y) :- common_parent(X,Y),gender(X,woman).
+
+brother_or_sister(X,Y) :- brother(X,Y);sister(X,Y).
+
+grandparent(X,Y) :- parent(X,Z),parent(Z,Y).
+
+grandfather(X,Y) :- grandparent(X,Y),gender(X,man).
+
+grandmother(X,Y) :- grandparent(X,Y),gender(X,woman).
